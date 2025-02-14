@@ -164,8 +164,8 @@ for iteration in range(1, 5):
             bpy.context.scene.frame_set(stop_frame)
 
             # Specify the output path for each combination of Z and X angle renders
-            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/null_{iteration+14}{x_index}{z_index}"
-            mask_output_path = f"null_m{iteration+14}{x_index}{z_index}"
+            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/null_{iteration}{x_index}{z_index}"
+            mask_output_path = f"null_m{iteration}{x_index}{z_index}"
             
             # Set paths for each output node
             node_tree = bpy.context.scene.node_tree
