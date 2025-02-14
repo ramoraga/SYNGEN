@@ -174,8 +174,8 @@ for iteration in range(1, 10):  # Adjust number of iterations as needed
             bpy.context.view_layer.update()
             bpy.context.scene.frame_set(stop_frame)
 
-            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/tshape_{iteration+33}{x_index}{z_index}"
-            mask_output_path = f"tshape_m{iteration+33}{x_index}{z_index}"
+            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/tshape_{iteration}{x_index}{z_index}"
+            mask_output_path = f"tshape_m{iteration}{x_index}{z_index}"
             
             node_tree = bpy.context.scene.node_tree
             for node in node_tree.nodes:
