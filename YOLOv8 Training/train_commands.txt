@@ -1,0 +1,9 @@
+yolo train model=yolov8n.pt data="/home/rmoraga/CAD Project/Prismatic Geometries/synthetic_dataset/data.yaml" epochs=50 imgsz=640 batch=16
+
+yolo task=segment mode=train model=yolov8l-seg.pt data="/home/rmoraga/CAD Project/Prismatic Geometries/synthetic_dataset/data.yaml" epochs=1500 imgsz=640 batch=8
+
+yolo task=segment mode=train model=yolov8l-seg.pt data="/home/rmoraga/CAD Project/Prismatic Geometries/real_dataset/data.yaml" epochs=1500 imgsz=640 batch=8
+
+yolo task=segment mode=val model="/home/rmoraga/YOLO Training/runs/segment/real4/weights/best.pt" data="/home/rmoraga/CAD Project/Prismatic Geometries/real_dataset/data.yaml"
+
+yolo task=segment mode=train model=yolov8l-seg.pt data="/home/rmoraga/CAD Project/Prismatic Geometries/quantity_dataset/data.yaml" epochs=1500 imgsz=640 batch=8
