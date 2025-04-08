@@ -31,10 +31,8 @@ def redefine_origin(imported_object):
     bpy.context.view_layer.objects.active = imported_object
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
 
-# Set the path to folder containing STL models
-stl_folder_path = 'C:/Users/dinob/Desktop/CAD Project/CAD Model Dataset/'
 
-# Get a list of all STL files in the folder
+stl_folder_path = 'C:/Users/dinob/Desktop/CAD Project/CAD Model Dataset/'
 stl_files = [f for f in os.listdir(stl_folder_path) if f.lower().endswith('.stl')]
 
 if not stl_files:
@@ -58,7 +56,7 @@ delete_existing_stl_models()
 gc.collect()
 
 # Import and configure the first STL model
-first_model = stl_files[5]
+first_model = stl_files[1]
 file_path = os.path.join(stl_folder_path, first_model)
 bpy.ops.import_mesh.stl(filepath=file_path)
 imported_object = bpy.context.selected_objects[0]
@@ -78,8 +76,8 @@ bpy.context.view_layer.objects.active = imported_object
 bpy.ops.rigidbody.object_add()
 imported_object.rigid_body.type = 'ACTIVE'
 imported_object.rigid_body.mass = 1.0
-imported_object.rigid_body.friction = 0.8
-imported_object.rigid_body.restitution = 0.3
+imported_object.rigid_body.friction = 0.5
+imported_object.rigid_body.restitution = 0.1
 imported_object.rigid_body.collision_shape = 'CONVEX_HULL'
 imported_object.rigid_body.collision_margin = 0.001
 
@@ -126,8 +124,8 @@ bpy.context.view_layer.objects.active = imported_object_2
 bpy.ops.rigidbody.object_add()
 imported_object_2.rigid_body.type = 'ACTIVE'
 imported_object_2.rigid_body.mass = 1.0
-imported_object_2.rigid_body.friction = 0.8
-imported_object_2.rigid_body.restitution = 0.3
+imported_object_2.rigid_body.friction = 0.5
+imported_object_2.rigid_body.restitution = 0.1
 imported_object_2.rigid_body.collision_shape = 'CONVEX_HULL'
 imported_object_2.rigid_body.collision_margin = 0.001
 
@@ -147,8 +145,8 @@ print("Both models imported and configured successfully.")
 
 # Rendering loop
 stop_frame = 25
-z_angles = [0, 45, 90, 135, 180, 225, 270, 315]
-x_angles = [40, 30, 0, -30, -60, -90]
+z_angles = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330]
+x_angles = [45, 30, 15, 0, -60, -90, -120]
 
 empty_object = bpy.data.objects.get('Empty')
 if empty_object is None:
@@ -174,8 +172,8 @@ for iteration in range(1, 10):  # Adjust number of iterations as needed
             bpy.context.view_layer.update()
             bpy.context.scene.frame_set(stop_frame)
 
-            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/tshape_{iteration}{x_index}{z_index}"
-            mask_output_path = f"tshape_m{iteration}{x_index}{z_index}"
+            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/bolt_{iteration+12}{x_index}{z_index}"
+            mask_output_path = f"bolt_m{iteration+12}{x_index}{z_index}"
             
             node_tree = bpy.context.scene.node_tree
             for node in node_tree.nodes:
