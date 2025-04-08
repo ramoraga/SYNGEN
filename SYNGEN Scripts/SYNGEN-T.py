@@ -10,7 +10,7 @@ def delete_existing_stl_models():
         if obj.type == 'MESH' and obj.name.startswith("Imported_"):
             bpy.data.objects.remove(obj, do_unlink=True)
             print("Objects delete.")
-    # Clean orphan data
+            
     for block in bpy.data.meshes:
         if block.users == 0:
             bpy.data.meshes.remove(block)
