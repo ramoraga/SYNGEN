@@ -14,6 +14,7 @@ The core of this research revolves around an automated synthetic data generation
 3. **Neural Network Training** – Two state-of-the-art AI-CV architectures, Detectron2 (Mask R-CNN, Faster R-CNN) and YOLOv8, are trained on the synthetic dataset.
 4. **Performance Evaluation** – Models trained on synthetic data are validated using real-world images to assess generalization capability.
 
+**Data Generation Flowchart**
 ![data generation flowchart](https://github.com/user-attachments/assets/a8789fc4-c181-40a4-a4d3-cbe54f2b02ec)
 
 
