@@ -42,4 +42,5 @@ input_folder = "/home/rmoraga/CAD Project/Prismatic Geometries/synthetic_dataset
 output_folder = "/home/rmoraga/CAD Project/test"
 object_name = "bolt"  # Change this to your object name
 
+# Call function
 process_masks(input_folder, output_folder, object_name)
