@@ -24,7 +24,7 @@ def delete_models():
 
 # Function to reset the object's position, rotation, and animation
 
-def reset_object_and_animation(imported_object, drop_location):
+def reset_object(imported_object, drop_location):
     imported_object.location = drop_location
     imported_object.rotation_euler = (
         random.uniform(0, 2 * 3.14159),  # Random rotation around the X-axis
@@ -40,6 +40,7 @@ def reset_object_and_animation(imported_object, drop_location):
 def redefine_origin(imported_object):
     bpy.context.view_layer.objects.active = imported_object
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+
 
 # Define CAD model folder paths
 stl_folder_path = 'C:/Users/dinob/Desktop/CAD Project/CAD Model Dataset/'
@@ -185,8 +186,8 @@ for iteration in range(1, 6):  # Adjust number of iterations as needed
     print(f"\n=== Starting iteration {iteration} ===")
 
     # Reset the objects' positions and rotations
-    reset_object_and_animation(imported_object, drop_location)
-    reset_object_and_animation(imported_object_2, drop_location_2)
+    reset_object(imported_object, drop_location)
+    reset_object(imported_object_2, drop_location_2)
 
     # Progress through the frames to simulate the object's fall
     for frame in range(stop_frame):
