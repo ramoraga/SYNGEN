@@ -4,6 +4,9 @@ import random
 from mathutils import Vector
 import gc
 
+""" The purpose of this script is to generate EXR and mask files of our objects from our 
+    CAD model dataset in our custom environment. Each render will only contain ONE object"""
+
 # Function to delete only the imported STL models
 def delete_existing_stl_models():
     for obj in bpy.context.scene.objects:

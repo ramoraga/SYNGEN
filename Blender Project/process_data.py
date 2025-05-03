@@ -95,6 +95,7 @@ def extract_rgbd(input_folder, output_rgb_folder, output_depth_folder):
             # Increment the index for the next file
             index += 1
 
+
 # Define paths
 home = "/home/rmoraga/CAD Project/Prismatic Geometries"
 
