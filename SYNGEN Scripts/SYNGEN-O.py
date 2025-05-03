@@ -7,8 +7,9 @@ import gc
 """ The purpose of this script is to generate EXR and mask files of our objects from our 
     CAD model dataset in our custom environment. Each render will only contain ONE object"""
 
-# Function to delete only the imported STL models
-def delete_existing_stl_models():
+# Function to delete any previously used imported STL models
+
+def delete_models():
     for obj in bpy.context.scene.objects:
         if obj.type == 'MESH' and obj.name.startswith("Imported_"):
             bpy.data.objects.remove(obj, do_unlink=True)
@@ -17,8 +18,10 @@ def delete_existing_stl_models():
         if block.users == 0:
             bpy.data.meshes.remove(block)
 
+
 # Function to reset the object's position, rotation, and animation
-def reset_object_and_animation(imported_object, drop_location):
+
+def reset_object(imported_object, drop_location):
     imported_object.location = drop_location
     imported_object.rotation_euler = (
         random.uniform(0, 2 * 3.14159),  # Random rotation around the X-axis
@@ -29,23 +32,26 @@ def reset_object_and_animation(imported_object, drop_location):
     # Reset the animation to the start frame
     bpy.context.scene.frame_set(0)
 
+
 # Function to redefine the origin of the imported object
+
 def redefine_origin(imported_object):
 
     bpy.context.view_layer.objects.active = imported_object
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
 
+
+# Define paths
 stl_folder_path = 'C:/Users/dinob/Desktop/CAD Project/CAD Model Dataset/'
 stl_files = [f for f in os.listdir(stl_folder_path) if f.lower().endswith('.stl')]
 
 if not stl_files:
     raise ValueError("No STL files found in the specified folder.")
 
-# Table dimensions
+# Define table dimensions for custom environment
 table_length = 1.12
 table_width = 0.816
 table_height = 0.6
-
 
 # Create or retrieve the collection for imported models
 collection_name = "Scene Collection"
@@ -56,9 +62,10 @@ else:
     bpy.context.scene.collection.children.link(import_collection)
 
 # Delete previous STL models
-delete_existing_stl_models()
+delete_models()
 gc.collect()
 
+# Define the object we want to import from our CAD model folder
 first_model = stl_files[4]
 
 # Import the selected STL model
@@ -74,9 +81,10 @@ bpy.context.scene.collection.objects.unlink(imported_object)  # Unlink from the 
 # Scale the object
 bbox = imported_object.dimensions
 largest_dim = max(bbox)
-scale_factor = 0.27 / largest_dim
+scale_factor = 0.27 / largest_dim   # Change scale factor
 imported_object.scale = (scale_factor, scale_factor, scale_factor)
 
+# Define drop location
 drop_location = (0, 0, table_height + 0.6)
 
 # Assign Rigid Body physics to the object
@@ -88,8 +96,8 @@ imported_object.rigid_body.friction = 0.8
 imported_object.rigid_body.restitution = 0.3 
 imported_object.pass_index = 1
 
+# Set drop location
 imported_object.location = drop_location
-
 imported_object.rigid_body.collision_shape = 'CONVEX_HULL' 
 imported_object.rigid_body.collision_margin = 0.001 
 
@@ -99,9 +107,9 @@ bpy.context.view_layer.objects.active = table_object
 bpy.ops.rigidbody.object_add()  
 table_object.rigid_body.type = 'PASSIVE'  
 table_object.rigid_body.friction = 1  
-
 bpy.context.view_layer.update()
 
+# Change material name
 material_name = "resin" 
 
 # Check if the material exists in the Blender environment
@@ -118,19 +126,25 @@ else:
 # Redefine the origin of the imported object
 redefine_origin(imported_object)
 
+# Define the number of frames to simulate, and our camera angles
 stop_frame = 25
-z_angles = [0, 45, 90, 135, 180, 225, 270, 315]
-x_angles = [40, 30, 0, -30, -60, -90]
+z_angles = [0, 45, 90, 135, 180, 225, 270, 315] # 8 angles
+x_angles = [40, 30, 0, -30, -60, -90]   # 6 angles
 
+# This object contains our camera
 empty_object = bpy.data.objects.get('Empty')
-
 if empty_object is None:
     raise ValueError("Object 'Empty' not found in the scene.")
 
-for iteration in range(1, 7):
+# Start rendering loop
+# For each iteration, total number of renders will be num of z angles * num of x_angles
+# e.g. 8 angles * 6 angles = 48 renders per iteration. 48 renders * 6 iterations = 288 total renders
+
+for iteration in range(1, 7):   # Change number of iterations
     print(f"\n=== Starting iteration {iteration} ===")
 
-    reset_object_and_animation(imported_object, drop_location)
+    # Give our object a random position and rotation at our drop location
+    reset_object(imported_object, drop_location)
 
     # Progress through the frames to simulate the object's fall
     for frame in range(stop_frame):
@@ -145,11 +159,13 @@ for iteration in range(1, 7):
             empty_object.rotation_euler[2] = z_angle * (3.14159 / 180) 
             empty_object.rotation_euler[0] = x_angle * (3.14159 / 180) 
 
+            # Update our view
             bpy.context.view_layer.update()
             bpy.context.scene.frame_set(stop_frame)
 
-            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/null_{iteration+18}{x_index}{z_index}"
-            mask_output_path = f"null_m{iteration+18}{x_index}{z_index}"
+            # Define output paths w/ class names
+            main_output_path = f"C:/Users/dinob/Desktop/CAD Project/Prismatic Geometries/bolt_{iteration}{x_index}{z_index}" # EXR path
+            mask_output_path = f"bolt_m{iteration}{x_index}{z_index}"    # Mask path
             
             # Set paths for each output node
             node_tree = bpy.context.scene.node_tree
