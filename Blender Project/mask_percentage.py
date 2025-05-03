@@ -40,7 +40,7 @@ def process_masks(input_folder, output_folder, object_name):
 # Define paths
 input_folder = "/home/rmoraga/CAD Project/Prismatic Geometries/synthetic_dataset/train/masks"  # Path to masks folder
 output_folder = "/home/rmoraga/CAD Project/test"
-object_name = "bolt"  # Change this to your object name
+object_name = "bolt"  # Change this to your class name
 
 # Call function
 process_masks(input_folder, output_folder, object_name)

@@ -27,7 +27,7 @@ def save_masks(input_folder, output_folder, prefix="mask"):
     # Iterate through PNG files in the input folder
     for filename in sorted(os.listdir(input_folder)):
         if filename.endswith(".png"):
-            # Define the new filename w/ object name (i.e. bolt, tshape, yoke, null)
+            # Define the new filename w/ class name (i.e. bolt, tshape, yoke, null)
             new_filename = f"null_{prefix}_{index:03d}.png"
             input_path = os.path.join(input_folder, filename)
             output_path = os.path.join(output_folder, new_filename)
