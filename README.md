@@ -5,7 +5,7 @@ This repository contains the implementation and resources for my thesis research
 **Project Overview**
 
 Traditional computer vision models require large, high-quality, and well-annotated real-world datasets, which can be expensive and time-consuming to collect. This project investigates an alternative approach: using synthetic images generated from 3D CAD models to train AI-driven object detection models while maintaining performance comparable to real-world datasets.
-
+****
 **Pipeline**
 
 The core of this research revolves around an automated synthetic data generation pipeline that consists of:
@@ -14,10 +14,12 @@ The core of this research revolves around an automated synthetic data generation
 3. **Neural Network Training** – Two state-of-the-art AI-CV architectures, Detectron2 (Mask R-CNN, Faster R-CNN) and YOLOv8, are trained on the synthetic dataset.
 4. **Performance Evaluation** – Models trained on synthetic data are validated using real-world images to assess generalization capability.
 
+
 **Data Generation Flowchart**
-![data generation flowchart](https://github.com/user-attachments/assets/a8789fc4-c181-40a4-a4d3-cbe54f2b02ec)
 
+<img src="https://github.com/user-attachments/assets/a8789fc4-c181-40a4-a4d3-cbe54f2b02ec" alt="flowchart" width="800"/>
 
+****
 **Key Findings**
 
 - Synthetic data can achieve comparable performance to real-world data for object detection tasks.
